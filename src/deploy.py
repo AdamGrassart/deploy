@@ -23,9 +23,9 @@ class Deploy:
     def action_check(self):
         conf = ConfParser(self.server_name)
         ssh = Ssh(conf.ssh_user_host, conf.ssh_port, conf.server_dest)
-        rev = ssh.get_rev()
-        print(rev) # test
-
+        branch, rev = ssh.get_rev()
+        print(branch) # test
+        print(rev)
         #print(ssh_response)
         # 1. -> on se connecte en ssh
         # 2. -> on vérifie que le fichier .rev puisse être ouvert (sinon erreur)

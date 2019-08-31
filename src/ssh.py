@@ -7,7 +7,9 @@ class Ssh:
         self.server_dest = server_dest
 
     def get_rev(self):
-        return self._sub_command("cat {}.rev".format(self.server_dest))
+        rev = self._sub_command("cat {}.rev".format(self.server_dest))
+        # FILTRER LES RETOUR CHARIOT en byte ou en texte à voir
+        return rev[0].decode('UTF-8'), rev[1].decode('UTF-8')
 
     def get_ssh_commit_sha(self):
         """ Get sha commit from remote file through ssh """
