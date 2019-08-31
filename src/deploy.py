@@ -1,5 +1,7 @@
 import argparse, inspect
 from confparser import ConfParser
+from ssh import Ssh
+import subprocess
 
 class Deploy:
 
@@ -20,6 +22,11 @@ class Deploy:
 
     def action_check(self):
         conf = ConfParser(self.server_name)
+        ssh = Ssh(conf.ssh_user_host, conf.ssh_port, conf.server_dest)
+        rev = ssh.get_rev()
+        print(rev) # test
+
+        #print(ssh_response)
         # 1. -> on se connecte en ssh
         # 2. -> on vérifie que le fichier .rev puisse être ouvert (sinon erreur)
         # 3. -> on récupère les informations du fichier .rev (branch + sha)

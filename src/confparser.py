@@ -6,8 +6,6 @@ class ConfParser():
         self.server_name = server_name
         self.conf = self._parseFile()
 
-        print(self.conf)
-
         # format conf :
         #self.conf["website1"]["ssh"]
 
@@ -23,7 +21,23 @@ class ConfParser():
                     self._err("Ce nom de serveur n'existe pas dans le fichier de configuration")
         except IOError:
             self._err("Chargement impossible du fichier deploy.yaml")
-            
+
+    @property
+    def ssh_user_host(self):
+        return "{}@{}".format(self.conf['ssh']['user'], self.conf['ssh']['host'])
+
+    @property
+    def ssh_port(self):
+        if not hasattr(self, 'port'):
+            return ''
+        else:
+            return "-p {}".format(self.port)
+
+    @property
+    def server_dest(self):
+        return self.conf['dir']['server']
+
+
 
     def _err(self, msg):
         print(msg)
