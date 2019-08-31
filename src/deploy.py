@@ -1,13 +1,11 @@
 import argparse, inspect
+from confparser import ConfParser
 
 class Deploy:
 
     def __init__(self, args):
-
         self.command = args.command
-        # args.[command] <- vérification existence de méthode
-        # args.[command} <- appel dynamique de methode
-
+        self.remote = args.remote
 
     def run_manager(self):
         command = 'action_' + self.command
@@ -16,34 +14,21 @@ class Deploy:
         if is_hasattr and inspect.ismethod(getattr(self, command)):
             getattr(self, command)()
 
-
-
     def action_on(self):
         print("appel de la methode on")
 
-    def action_remote(self):
-        print("appel de la methode remote")
+    def action_check(self):
+        # 1. on verifie si le fichier existe bien
+        # 2. on recupere les deux ligne (branch | commit sha)
+        # 3. on compare
+        # deploy check remoteConf
+        conf = ConfParser(self.remote)
 
 
 if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(
-        description='Deploy est un outil de deploiment en ligne de commande'
-    )
-
-    parser.add_argument(
-        'command',
-        type=str,
-        metavar='Commande',
-        help=""
-    )
-
-    parser.add_argument(
-        'remote',
-        metavar='Remote',
-        help=""
-    )
-
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('command', type=str, metavar='Commande', help="")
+    parser.add_argument('remote',metavar='Remote',help="")
     args = parser.parse_args()
 
     deploy = Deploy(args)
