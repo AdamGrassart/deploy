@@ -5,7 +5,7 @@ class Deploy:
 
     def __init__(self, args):
         self.command = args.command
-        self.remote = args.remote
+        self.server_name = args.server_name
 
     def run_manager(self):
         command = 'action_' + self.command
@@ -15,20 +15,22 @@ class Deploy:
             getattr(self, command)()
 
     def action_on(self):
-        print("appel de la methode on")
+        # appel de la methode on pour envoyer sur le serveur
+        pass
 
     def action_check(self):
-        # 1. on verifie si le fichier existe bien
-        # 2. on recupere les deux ligne (branch | commit sha)
-        # 3. on compare
-        # deploy check remoteConf
-        conf = ConfParser(self.remote)
+        conf = ConfParser(self.server_name)
+        # 1. -> on se connecte en ssh
+        # 2. -> on vérifie que le fichier .rev puisse être ouvert (sinon erreur)
+        # 3. -> on récupère les informations du fichier .rev (branch + sha)
+        # 3.bis -> on vérifie que l'on est sur la même branche en local
+        # 4. -> on compare sha | HEAD
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="")
     parser.add_argument('command', type=str, metavar='Commande', help="")
-    parser.add_argument('remote',metavar='Remote',help="")
+    parser.add_argument('server_name',metavar='Server_name',help="")
     args = parser.parse_args()
 
     deploy = Deploy(args)
