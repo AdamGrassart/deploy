@@ -1,10 +1,10 @@
 import subprocess
 
 class Ssh:
-    def __init__(self, ssh_user_host, ssh_port, server_dest):
-        self.ssh_user_host = ssh_user_host
-        self.ssh_port = ssh_port
-        self.server_dest = server_dest
+    def __init__(self, ssh):
+        self.ssh_user_host = ssh['user_host']
+        self.ssh_port = ssh['port']
+        self.server_dest = ssh['dest']
 
     def get_rev(self):
         rev = self._sub_command("cat {}.rev".format(self.server_dest))

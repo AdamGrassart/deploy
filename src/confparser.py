@@ -34,8 +34,16 @@ class ConfParser():
             return "-p {}".format(self.port)
 
     @property
-    def server_dest(self):
-        return self.conf['dir']['server']
+    def ssh_dest(self):
+        return self.conf['ssh']['dest']
+
+    @property
+    def ssh_infos(self):
+        return {
+            'user_host': self.ssh_user_host,
+            'port': self.ssh_port,
+            'dest': self.ssh_dest
+        }
 
 
 
