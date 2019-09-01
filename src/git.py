@@ -10,16 +10,7 @@ class Git:
         """ give the current branch as variable object """
         result = self._sub_command(['rev-parse','--abbrev-ref', 'HEAD'])
         return result[0].decode('utf-8').replace('\n','')
-
-    @property
-    def commit(self):
-        """ give the current commit Object """
-        pass
-    
-    def get_commit(self, sha):
-        """ give specific commit Object with sha """
-        pass
-    
+      
     def diff_file_name(self, sha_remote):
         """ give diff files list name between commit_a and commit_b """
         result = self._sub_command(['diff', '--name-only', sha_remote, 'HEAD'])
