@@ -20,11 +20,16 @@ class Git:
         """ give specific commit Object with sha """
         pass
     
-    def diff_commit_file_name(self, commit_a, commit_b):
+    def diff_file_name(self, sha_remote):
         """ give diff files list name between commit_a and commit_b """
-        pass
+        result = self._sub_command(['diff', '--name-only', sha_remote, 'HEAD'])
 
-    def diff_commit_file_name_state(self, commit_a, commit_b):
+        for index, res in enumerate(result):
+            result[index] = res.decode('utf-8').replace('\n', '')
+
+        print(result)
+
+    def diff_file_name_state(self, commit_a, commit_b):
         """ give diff files list with state name between commit_a and commit_b """
         pass
 

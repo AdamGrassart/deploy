@@ -34,8 +34,12 @@ class Deploy:
 
     def action_check(self):
         remote_branch, remote_sha = self.ssh.get_rev()
-        print("branche local :" + self.git.branch)
-        print("branche distante :" + remote_branch)
+
+        if self.git.branch != remote_branch:
+            print("vous n'êtes pas sur la bonne branche")
+            exit(1)
+
+        self.git.diff_file_name(remote_sha)
 
 
         # 3.bis -> on vérifie que l'on est sur la même branche en local
