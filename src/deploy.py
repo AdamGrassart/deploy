@@ -29,8 +29,9 @@ class Deploy:
     def run_manager(self):
         command = 'action_' + self.command
         is_hasattr  = hasattr(self, command)
+        is_method   = inspect.ismethod(getattr(self, command))
 
-        if is_hasattr and inspect.ismethod(getattr(self, command)):
+        if is_hasattr and is_method:
             getattr(self, command)()
 
     def _load_conf(self):
