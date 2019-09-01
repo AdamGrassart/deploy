@@ -8,8 +8,6 @@ class Ssh:
 
     def get_rev(self):
         rev = self._sub_command("cat {}.rev".format(self.server_dest))
-        # FILTRER LES RETOUR CHARIOT en byte ou en texte à voir
-
         return rev[0].decode('UTF-8').replace('\n', ''), \
                rev[1].decode('UTF-8').replace('\n', '')
 
