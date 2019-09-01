@@ -6,7 +6,7 @@ import subprocess
 
 class Deploy:
 
-    colorShell = {
+    clrTerm = {
         'A': '\033[92m',  # add
         'C': '\033[92m',  # copied
         'D': '\033[31m',  # deleted
@@ -51,10 +51,8 @@ class Deploy:
         diff = self.git.diff_file_name(remote_sha)
 
         for line in diff:
-            print("{} {} {} {}".format(self.colorShell[line[0]],line[0], line[1], self.colorShell['END']))
+            print("{} {} {} {}".format(self.clrTerm[line[0]], line[0], line[1], self.clrTerm['END']))
 
-        # 3.bis -> on vérifie que l'on est sur la même branche en local
-        # 4. -> on compare sha | HEAD
 
 
 if __name__ == '__main__':
