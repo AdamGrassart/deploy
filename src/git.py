@@ -10,19 +10,16 @@ class Git:
         """ give the current branch as variable object """
         result = self._sub_command(['rev-parse','--abbrev-ref', 'HEAD'])
         return result[0].decode('utf-8').replace('\n','')
-      
-    def diff_file_name(self, sha_remote):
+
+    def diff_file_name(self, sha_remote, status = False):
         """ give diff files list name between commit_a and commit_b """
-        result = self._sub_command(['diff', '--name-only', sha_remote, 'HEAD'])
+        result = self._sub_command(['diff', '--name-status', sha_remote, 'HEAD'])
 
         for index, res in enumerate(result):
-            result[index] = res.decode('utf-8').replace('\n', '')
+            result[index] = res.decode('utf-8').replace('\n', '').split('\t')
 
-        print(result)
+        return result
 
-    def diff_file_name_state(self, commit_a, commit_b):
-        """ give diff files list with state name between commit_a and commit_b """
-        pass
 
 
     def _sub_command(self, command):

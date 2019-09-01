@@ -39,8 +39,9 @@ class Deploy:
             print("vous n'êtes pas sur la bonne branche")
             exit(1)
 
-        self.git.diff_file_name(remote_sha)
+        diff = self.git.diff_file_name(remote_sha)
 
+        print(diff)
 
         # 3.bis -> on vérifie que l'on est sur la même branche en local
         # 4. -> on compare sha | HEAD
