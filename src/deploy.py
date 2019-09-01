@@ -33,8 +33,10 @@ class Deploy:
         pass
 
     def action_check(self):
-        branch, sha = self.ssh.get_rev()
-        self.git.branch
+        remote_branch, remote_sha = self.ssh.get_rev()
+        print("branche local :" + self.git.branch)
+        print("branche distante :" + remote_branch)
+
 
         # 3.bis -> on vérifie que l'on est sur la même branche en local
         # 4. -> on compare sha | HEAD

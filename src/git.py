@@ -8,7 +8,8 @@ class Git:
     @property
     def branch(self):
         """ give the current branch as variable object """
-        self._sub_command(['rev-parse','--abbrev-ref', 'HEAD'])
+        result = self._sub_command(['rev-parse','--abbrev-ref', 'HEAD'])
+        return result[0].decode('utf-8').replace('\n','')
 
     @property
     def commit(self):
@@ -41,15 +42,13 @@ class Git:
         result = response.stdout.readlines()
         error = response.stderr.readlines()
 
-        print(result)
-        print(error)
+        if error != []:
+            # todo: à implementer
+            pass
+        if result == []:
+            # todo: à implementer
+            pass
 
-        #gestion des erreurs head détaché ou autre
-        #if error != []:
-        #    self._err("")
-        #if result == []:
-        #    self._err("")
-
-        #return result
+        return result
 
     
