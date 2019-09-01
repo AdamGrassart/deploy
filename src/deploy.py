@@ -1,5 +1,6 @@
 import argparse, inspect
 from confparser import ConfParser
+from git import Git
 from ssh import Ssh
 import subprocess
 
@@ -23,13 +24,10 @@ class Deploy:
     def action_check(self):
         conf = ConfParser(self.server_name)
         ssh = Ssh(conf.ssh_user_host, conf.ssh_port, conf.server_dest)
-        branch, rev = ssh.get_rev()
-        print(branch) # test
-        print(rev)
-        #print(ssh_response)
-        # 1. -> on se connecte en ssh
-        # 2. -> on vérifie que le fichier .rev puisse être ouvert (sinon erreur)
-        # 3. -> on récupère les informations du fichier .rev (branch + sha)
+        branch, sha = ssh.get_rev()
+        git = Git()
+        git.branch
+
         # 3.bis -> on vérifie que l'on est sur la même branche en local
         # 4. -> on compare sha | HEAD
 
