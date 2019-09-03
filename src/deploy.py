@@ -51,7 +51,9 @@ class Deploy:
         diff = self.git.diff_file_name(remote_sha)
 
         for line in diff:
-            print("{} {} {} {}".format(self.clrTerm[line[0]], line[0], line[1], self.clrTerm['END']))
+            stat, file_name = line[0], line[1]
+            clrTerm, clrClose = self.clrTerm[stat], self.clrTerm['END']
+            print("{} {} {} {}".format(clrTerm, stat, file_name, clrClose))
 
 
 
