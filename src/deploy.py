@@ -2,6 +2,7 @@ import argparse, inspect
 from confparser import ConfParser
 from git import Git
 from ssh import Ssh
+from error import Error
 import subprocess
 
 class Deploy:
@@ -19,6 +20,7 @@ class Deploy:
         self.command = args.command
         self.server_name = args.server_name
         self.git = Git()
+        self.error = Error()
 
         if self.server_name != '':
             self.conf = self._load_conf()
