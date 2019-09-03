@@ -47,7 +47,7 @@ class Deploy:
         remote_branch, remote_sha = self.ssh.get_rev()
 
         if self.git.branch != remote_branch:
-            self.error.stop_with_msg("You are not on the right branch")
+            self.error.stop_with_msg(self.error._ERR_DIFF_BRANCH_)
 
         diff = self.git.diff_file_name(remote_sha)
 

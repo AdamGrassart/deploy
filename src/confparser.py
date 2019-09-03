@@ -10,15 +10,15 @@ class ConfParser():
 
     def _parseFile(self):
         try:
-            with open("deploy.yamla", 'r') as stream:
+            with open("deploy.yaml", 'r') as stream:
                 try:
                     return yaml.safe_load(stream)[self.server_name]
                 except yaml.YAMLError as exc:
-                    self.error.stop_with_msg("Le fichier de configuration n'est pas bien formaté")
+                    self.error.stop_with_msg(self.error._ERR_FORMAT_CONF_)
                 except KeyError:
-                    self.error.stop_with_msg("Ce nom de serveur n'existe pas dans le fichier de configuration")
+                    self.error.stop_with_msg(self.error._ERR_SERV_NOEXIST_)
         except IOError:
-            self.error.stop_with_msg("Chargement impossible du fichier deploy.yaml")
+            self.error.stop_with_msg(self.error._ERR_LOADING_CONF_)
 
     @property
     def ssh_user_host(self):
