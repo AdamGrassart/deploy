@@ -1,9 +1,10 @@
 import subprocess
+from error import Error
 
 class Git:
 
     def __init__(self, sha=None):
-        pass
+        self.error = Error()
 
     @property
     def branch(self):
@@ -15,8 +16,11 @@ class Git:
         """ give diff files list name between commit_a and commit_b """
         result = self._sub_command(['diff', '--name-status', sha_remote, 'HEAD'])
 
-        for index, res in enumerate(result):
-            result[index] = res.decode('utf-8').replace('\n', '').split('\t')
+        if result:
+            for index, res in enumerate(result):
+                result[index] = res.decode('utf-8').replace('\n', '').split('\t')
+        else:
+            self.error.stop_with_msg(self.error._ERR_BAD_SHA_)
 
         return result
 
@@ -36,8 +40,8 @@ class Git:
         error = response.stderr.readlines()
 
         if error != []:
-            # todo: à implementer
-            pass
+            return False
+
         if result == []:
             # todo: à implementer
             pass
